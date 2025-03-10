@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
 
+    public Transform tankPawnSpawnPoint;
+
+    // List that holds our player(s)
+    public List<PlayerController> players;
+
     private void Awake()
     {
         // If the instance doesn't exist yet
@@ -22,6 +27,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        players = new List<PlayerController>();
     }
 
     public void Start()
@@ -32,7 +39,7 @@ public class GameManager : MonoBehaviour
     public void SpawnPlayer()
     {
         GameObject playerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity);
-        GameObject pawnObj = Instantiate(tankPawnPrefab, Vector3.zero, Quaternion.identity);
+        GameObject pawnObj = Instantiate(tankPawnPrefab, tankPawnSpawnPoint.position, Quaternion.identity);
 
         Controller playerController = playerObj.GetComponent<Controller>();
         Pawn tankPawn = pawnObj.GetComponent<Pawn>();
